@@ -215,7 +215,9 @@ class StatsParser(object):
             self.logger.info("Updated dashboard at {0}".format(url))
                     
     def make_dashboard(self, d_web_summary):
-
+        import pickle
+        pickle.dump(d_web_summary,open("test.txt","w"))
+        d_web_summary = pickle.load(open("test.txt"))
         with Utils.locked_open(self.SUMMARY_NAME, 'w') as fhout:
             json.dump(d_web_summary, fhout, sort_keys = True, indent = 4, separators=(',',': '))
             # fhout.write(json.dumps(d_web_summary, sort_keys = True, indent = 4, separators=(',',': '), cls=CustomEncoder))
