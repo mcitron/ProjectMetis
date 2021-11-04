@@ -162,7 +162,7 @@ class EventsFile(File):
     def calculate_nevents_negative(self):
         self.nevents, self.nevents_negative = self.calculate()
 
-    def calculate(self, treename="Events"): # pragma: no cover
+    def calculate(self, treename="demo/timeTree"): # pragma: no cover
         """
         Return [nevents total, nevents negative]
         """
@@ -174,18 +174,25 @@ class EventsFile(File):
 
         t = fin.Get(treename)
         if not t:
+            t = fin.Get("Events")
+            if not t:
+                t = fin.Get("l1EventTree/L1EventTree")
+            if not t:
+                t = fin.Get("ntuples/llp")
+        if not t:
+            os.system("rm {0}".format(self.name))
             raise Exception("Tree {0} in file {1} does not exist, so cannot calculate nevents!".format(treename, self.name))
         d_nevts = {}
-        for do_negative in [True, False]:
-            key = "nevts_neg" if do_negative else "nevts"
-            obj = t.GetUserInfo()
-            if obj and obj.FindObject(key):
-                d_nevts[key] = obj.FindObject(key)
-                if d_nevts[key]:
-                    d_nevts[key] = int(d_nevts[key].GetVal())
-            else:
-                d_nevts[key] = t.GetEntries("genps_weight < 0" if do_negative else "")
-        return d_nevts["nevts"], d_nevts["nevts_neg"]
+        # for do_negative in [True, False]:
+        #     key = "nevts_neg" if do_negative else "nevts"
+        #     obj = t.GetUserInfo()
+        #     if obj and obj.FindObject(key):
+        #         d_nevts[key] = obj.FindObject(key)
+        #         if d_nevts[key]:
+        #             d_nevts[key] = int(d_nevts[key].GetVal())
+        #     else:
+        #         d_nevts[key] = t.GetEntries("genps_weight < 0" if do_negative else "")
+        return t.GetEntries(), 0
 
 
 

@@ -116,9 +116,9 @@ def locked_open(filename, mode='r'):
        use within the context.
     """
     with open(filename, mode) as fd:
-        fcntl.flock(fd, fcntl.LOCK_EX)
+        # fcntl.flock(fd, fcntl.LOCK_EX)
         yield fd
-        fcntl.flock(fd, fcntl.LOCK_UN)
+        # fcntl.flock(fd, fcntl.LOCK_UN)
 
 def do_cmd(cmd, returnStatus=False, dryRun=False):
     if dryRun:
