@@ -66,7 +66,6 @@ allsites = [
 #             "T3_US_UMD",
         ]
 
-
 def print_summary_string(statuses):
     print("Summary: ", end="")
     for site,done in sorted(statuses.items()):
