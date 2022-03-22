@@ -302,7 +302,12 @@ class DirectorySample(Sample):
     def get_files(self):
         if self.info.get("files", None):
             return self.info["files"]
-        filepaths = glob.glob(self.info["location"] + "/" + self.globber)
+        filepathsTemp = glob.glob(self.info["location"] + "/" + self.globber)
+        filepaths = []
+        for filepath in filepathsTemp:
+            if "miniaodsim" in filepath:
+                continue
+            filepaths.append(filepath)
         if self.use_xrootd:
             filepaths = ["/store/"+fp.split("/store/",1)[-1] for fp in filepaths]
         filepaths = sorted(filepaths)
