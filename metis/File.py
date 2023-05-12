@@ -181,6 +181,8 @@ class EventsFile(File):
                 t = fin.Get("ntuples/llp")
             if not t:
                 t = fin.Get("demo/tree")
+            if not t:
+                t = fin.Get("demo/timeTree")
 	    if not t:
 		t = fin.Get("triggerTimeAnalyser/timeTree")
         if not t:
