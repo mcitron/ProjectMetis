@@ -183,8 +183,8 @@ class EventsFile(File):
                 t = fin.Get("demo/tree")
             if not t:
                 t = fin.Get("demo/timeTree")
-	    if not t:
-		t = fin.Get("triggerTimeAnalyser/timeTree")
+            if not t:
+                t = fin.Get("triggerTimeAnalyser/timeTree")
         if not t:
             os.system("rm {0}".format(self.name))
             raise Exception("Tree {0} in file {1} does not exist, so cannot calculate nevents!".format(treename, self.name))
