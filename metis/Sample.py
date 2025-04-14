@@ -475,7 +475,7 @@ class DummySample(DirectorySample):
             return self.info["files"]
         extra = {}
         nevents_per_file = 0
-        if self.info.get("nevents",0) > 0:
+        if (self.info.get("nevents") or 0) > 0:
             nevents_per_file = int(self.info["nevents"] / self.n_dummy_files)
             self.info["nevts"] = self.info["nevents"]
         self.info["files"] = [EventsFile("{}_{}.{}".format(self.dummy_name,i,self.dummy_extension),fake=True,nevents=nevents_per_file) for i in range(self.n_dummy_files)]
